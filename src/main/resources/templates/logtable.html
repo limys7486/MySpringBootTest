@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=”http://www.springframework.org/schema/security>
+
+<body>
+
+<div layout:fragment="content">
+  <div id="divMain">
+    <div class="content-wrapper">
+
+      <section class="content-header">
+        <h1>Search Data History</h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">이력조회</li>
+        </ol>
+
+        <form class="navbar-search pull-left">
+          <input type="text" class="search-query" placeholder="검색">
+          <button type="submit" class="btn">제출</button>
+        </form>
+      </section>
+
+      <section class="content">
+        <div class="row">
+
+          <table id="myTable" class="table table-striped table-bordered table-striped table-condensed table-hover table-responsive" style='width:80%'>
+
+            <thead id='tableHeader' style="background-color:#EBEBEB;">
+            <tr>
+              <td style="border:1px solid #CFCFCF">GW ID</td>
+              <td style="border:1px solid #CFCFCF">GW Name</td>
+              <td style="border:1px solid #CFCFCF">Sensor ID</td>
+              <td style="border:1px solid #CFCFCF">Sensor Name</td>
+              <td style="border:1px solid #CFCFCF">OP Mode</td>
+              <td style="border:1px solid #CFCFCF">Point Address</td>
+              <td style="border:1px solid #CFCFCF">Measured Value</td>
+              <td style="border:1px solid #CFCFCF">UOM</td>
+              <td style="border:1px solid #CFCFCF">Threshold Min</td>
+              <td style="border:1px solid #CFCFCF">Threshold Max</td>
+              <td style="border:1px solid #CFCFCF">Threshold Type</td>
+              <td style="border:1px solid #CFCFCF">Measured Time</td>
+              <td style="border:1px solid #CFCFCF"></td>
+            </tr>
+            </thead>
+
+          <tbody>	</tbody>
+        </table>
+
+       </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+function getDataHistory_tab3() {
+    var param = makeSearchParam_tab3();
+
+    var json = getAjaxJsonData("POST", "json", "/ajax/dataHistory", param, false, function(data) {
+      var jsonString = JSON.stringify(data);
+      //alert(jsonString);
+
+      var table = $("#myTable").DataTable();
+      table.clear();
+      table.rows.add(JSON.parse(jsonString)).draw();  // List 로 데이터를 받음 (content-type:application/json)
+      //table.columns.adjust().draw();
+      $('#myTable').dataTable().fnAdjustColumnSizing();
+      //table.resize();
+    });
+  }
+
+  $(document).ready(function(){
+
+  $.fn.dataTable.ext.pager.numbers_length = 10;
+
+	var table = $("#myTable").DataTable({
+    "bFilter" : true,
+    "pageLength": 5,
+		"paging": true,
+		"info": false,
+		"searching": true,
+		//"bProcessing": true,
+		"ordering": true,
+
+		"select": true,
+	    //"bInfo": true,
+
+	    "bLengthChange": false,
+	    "bStateSave": true,
+	    //"bJQueryUI" : true,
+
+		"sPaginationType":"full_numbers",
+		"pagingType": "full_numbers",
+		//aaSorting:[[0, "desc"]],
+
+		"fixedHeader": true,
+		"responsive": false,
+		//"bAutoWidth": false,
+
+		"scrollY": "260",
+		"bScrollCollapse": true,
+		//"scrollY": "260px",
+
+	    "bDestroy": true,
+
+		"language": {
+			'search': 'Filter : ',
+
+            'infoEmpty': '', //"No records available",
+            'zeroRecords': 'No Data',
+            'emptyTable': 'No Data',
+			'paginate': {
+				'first': '<<',
+				'previous': '<',
+				'next': '>',
+				'last': '>>'
+			}
+		},
+
+		"dom": 'r<"scrollDiv"t><"bottom"<"row"<"col-md-2"B><"col-md-6"p><"col-md-2"i><"col-md-2"f>>>',//'Bfrtip',
+
+		"buttons": [
+			{
+	            'extend': 'copyHtml5',
+	            'text': '<i class="fa fa-files-o"></i>',
+	            'titleAttr': 'Copy'
+	        },
+	        {
+	            'extend': 'excelHtml5',
+	            'text': '<i class="fa fa-file-excel-o"></i>',
+	            'titleAttr': 'Excel'
+	        },
+	        {
+	            'extend': 'pdfHtml5',
+	            'text': '<i class="fa fa-file-pdf-o"></i>',
+	            'titleAttr': 'PDF'
+	        }
+        ],
+
+		/*
+		buttons: [
+		    'copyHtml5', 'excelHtml5', 'pdfHtml5' //, 'csvHtml5'
+		],
+		*/
+
+		"columns": [
+			{ data: "gid" },
+			{ data: "gateway_name" },
+			{ data: "sid" },
+			{ data: "sensor_name" },
+			{ data: "op_mode" },
+			{ data: "point_addr" },
+			{ data: "sensor_value" },
+			{ data: "uom" },
+			{ data: "threshold_min" },
+			{ data: "threshold_max" },
+			{ data: "threshold_type" },
+			{ data: "measure_date" },
+			{ data: "blank" }
+		],
+
+		"columnDefs": [
+			{
+	        	"targets": [3],
+	        	"render": function (data, type, row) {
+	        		return "<center><span class=\"label label-default\" style=\"font-size:10pt\">"+data+"</span></center>";
+	        	}
+			},
+			{
+	        	"targets": [6],
+	        	"render": function (data, type, row) {
+	        		return "<center><span class=\"badge\" style=\"font-size:10pt;background-color:#BABABA\">"+data+"</span></center>";
+	        	}
+			},
+			{
+			    "targets": [10],
+			    "visible": false,  // column visible : hidden
+			    "searchable": false
+			},
+			{
+				"targets": [12],
+				"data": null,
+				"defaultContent": "", // extra column
+				"orderable": false,
+				"order": []
+			}
+		],
+
+		"rowCallback": function(row, data) {	 },
+		"drawCallback": function(settings) { 	}
+	});
+
+
+</script>
+</th:block>
+
+</body>
+</html>

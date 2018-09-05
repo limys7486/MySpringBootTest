@@ -1,0 +1,126 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=”http://www.springframework.org/schema/security>
+
+<body>
+
+<style type="text/css">
+
+div.dataTables_wrapper {
+    /* background-color: #719ba7;*/
+    white-space: nowrap;
+}
+
+#myTable thead > tr { font-size: 13px; height: 32px; padding:0px; }
+#myTable thead { font-size: 13px; height: 32px; padding:0px; }
+//#myTable thead > tr > th { font-size: 13px; height: 32px; padding:0px; }
+#myTable tbody > tr > td { font-size: 13px; height: 32px; padding:0px; }
+hr.style4 {
+border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+</style>
+
+<div layout:fragment="content">
+  <div id="divMain">
+    <div class="content-wrapper">
+
+      <section class="content-header">
+        <h1>사용자 관리</h1>
+        
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">사용자 관리</li>
+        </ol>
+      </section>
+      
+      <!--<hr class="style4" />-->
+      <!--<form class="navbar-search pull-left">-->
+        <!--<input type="text" class="search-query" placeholder="검색">-->
+        <!--<button type="submit" class="btn">제출</button>-->
+      <!--</form>-->
+
+      <section class="content" style="padding-top:20px;">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <!-- GRAPH CHART - lineandbars.js file -->
+            <!--<div class="col-xs-12">-->
+              <!--<div class="dash-unit">-->
+                <!--<dtitle>Other Information</dtitle>-->
+              <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<p class="bg-primary center-block" style="width: 100%;">-->
+            <div class="row col-xs-12">
+              <table id="myTable" class="table table-bordered table-striped table-condensed table-hover table-responsive">
+                <thead id='tableHeader' style="background-color:#EBEBEB;">
+                  <tr>
+                    <th style="border:1px solid #CFCFCF">User ID</th>
+                    <th style="border:1px solid #CFCFCF">User Name</th>
+                    <th style="border:1px solid #CFCFCF">E-mail</th>
+                    <th style="border:1px solid #CFCFCF">Address</th>
+                    <th style="border:1px solid #CFCFCF">Mobile</th>
+                    <th style="border:1px solid #CFCFCF">Role</th>
+                    <th style="border:1px solid #CFCFCF">Update Date</th>
+                    <th style="border:1px solid #CFCFCF">Enabled</th>
+                    <th style="border:1px solid #CFCFCF">Activity</th>
+                    <th style="border:1px solid #CFCFCF"></th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <!--</p>-->
+
+
+
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  
+  
+  <!--<th:block layout:fragment="script">-->
+    <script th:inline="javascript" th:src="@{/js/myModule/memberModule.js}"></script>
+    <script th:inline="javascript" th:src="@{/js/myModule/userListTableModule.js}"></script>
+    
+    <script th:inline="javascript">
+      $(document).ready(function(e) {
+      
+        userListTableModule.initTable($("#myTable"));
+        memberModule.findAll('all', addUserList);
+        
+        function addUserList(pList) {
+          console.log(JSON.stringify(pList));
+          
+          userListTableModule.addUserList($("#myTable"), pList);
+          
+          /*
+          var memberObj;
+          for (var i=0; i < list.length; i++) {
+            memberObj = list[i];
+          }
+          */
+        }
+        
+    });
+
+  </script>
+  
+  
+  <!--</th:block>-->
+  </div>
+</div>
+
+
+</body>
+</html>

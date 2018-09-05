@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec=”http://www.springframework.org/schema/security
+	  layout:decorator="layout/base">
+
+<body>
+
+<div th:text ="${auth}"><h3>HOME Test</h3></div>
+
+<input type="text" name="userName" th:value="${loggedUsername}" />
+
+<!-- layout : content -->
+<div layout:fragment="content">
+  <div id="divContent">
+    <div class="content-wrapper"></div>
+  </div>
+</div>
+
+<!--사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+  <style>
+    #divMain {
+      height:calc(100vh - (101px));
+    }
+  </style>
+</th:block>
+
+<!--사용자 JS 추가 -->
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+     $(document).ready(function() {
+		
+		var mainContent = '';
+		var isAuthenticated = [[ ${auth.authenticated} ]] ;
+		var username = [[ ${auth.principal} ]] ;
+		
+		console.log(isAuthenticated);
+		console.log(username);
+		
+		if (isAuthenticated === true && username !== 'anonymousUser') {
+			mainContent = '/dashboard';
+		} else {
+			mainContent = '/defaultmain';
+		}
+		
+        changeContent(mainContent);
+        
+    });
+    
+    function changeContent(pageName) {
+        //alert(pageName);
+
+        $('#divContent').load(pageName);
+    }
+    </script>
+</th:block>
+
+</body>
+</html>
