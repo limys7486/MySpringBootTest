@@ -4,7 +4,7 @@ var userListTableModule = (function () {
 
 		var table = obj.DataTable({
 			"bFilter" : true,
-			"pageLength": 5,
+			"pageLength": 10,
 			"paging": true,
 			"info": false,
 			"searching": true,

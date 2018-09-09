@@ -107,18 +107,18 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
 
 	compile group: 'org.webjars', name: 'webjars-locator', version: '0.32'
-	compile group: 'org.webjars', name: 'startbootstrap-sb-admin-2', version: '3.3.7+1'
+
+    compile 'org.webjars:jquery:3.3.1-1'
+    compile group: 'org.webjars', name: 'jquery-ui', version: '1.12.1'
+    compile group: 'org.webjars', name: 'startbootstrap-sb-admin-2', version: '3.3.7+1'
+
+    compile 'org.webjars:bootstrap:3.3.1'
+    compile group: 'org.webjars', name: 'datatables', version: '1.10.19'
+
 	compile group: 'org.webjars', name: 'metisMenu', version: '1.1.2'
 
 	compile group: 'org.webjars', name: 'font-awesome', version: '4.7.0'
-
-	compile group: 'org.webjars', name: 'jquery-ui', version: '1.12.1'
-	compile group: 'org.webjars', name: 'datatables', version: '1.10.19'
-
 	compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
-
-	compile 'org.webjars:jquery:3.3.1-1'
-	compile 'org.webjars:bootstrap:3.3.1'
 	compile 'org.webjars:materializecss:0.96.0'
 
 	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '2.1.2.RELEASE'

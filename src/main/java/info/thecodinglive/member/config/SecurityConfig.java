@@ -37,62 +37,62 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-				.authorizeRequests()
+			.authorizeRequests()
 
-				//접근 허용
-				.antMatchers("/css/**", "/js/**", "/images/**", "/fragments/footer.html/", "/adminLTE/**", "/dataTables/**", "/resources/**", "/webjars/**", "/signup", "/home", "/login", "/","/defaultmain","/members/**").permitAll()
-				.anyRequest().authenticated()
-				.antMatchers("/user/**").access("ROLE_USER")
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.and()
+			//접근 허용
+			.antMatchers("/css/**", "/js/**", "/images/**", "/fragments/footer.html/", "/adminLTE/**", "/dataTables/**", "/resources/**", "/webjars/**", "/signup", "/home", "/login", "/","/defaultmain","/members/**").permitAll()
+			.anyRequest().authenticated()
+			.antMatchers("/user/**").access("ROLE_USER")
+			.antMatchers("/admin/**").hasRole("ADMIN")
+			.and()
 
-				//iframe 허용
-				.headers().
-				frameOptions().disable()
-				.and()
-	
-				//DB 어드민 접속 허용
-				.csrf()
-				//.ignoringAntMatchers("/h2-console/**")
-				.and()
-				
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
-				.and()
-		
-				//로그인
-				.formLogin()
-				.loginPage("/login")
-				.loginProcessingUrl("/sign-in")
-				.defaultSuccessUrl("/home")
-				.failureUrl("/login?error")
-				.usernameParameter("username")
-				.passwordParameter("passwd")
-				.permitAll()
-				.and()
+			//iframe 허용
+			.headers().
+			frameOptions().disable()
+			.and()
 
-				//예외처리
-				.exceptionHandling().accessDeniedHandler(MemberAccessDeniedHandler())
-				.and()
-				.rememberMe()
-				.key("mykey")
-				.rememberMeParameter("remember-me")
-				.rememberMeCookieName("mycookie")
-				.tokenValiditySeconds(86400) //1day
-				.tokenRepository(rememberMeTokenService()).userDetailsService(myUserDetailsService())
-				.and()
+			//DB 어드민 접속 허용
+			.csrf()
+			//.ignoringAntMatchers("/h2-console/**")
+			.and()
 
-				//로그아웃
-				.logout()// .logoutUrl("/signout")   // Specifies the logout URL, default URL is '/logout'
-				.logoutUrl("/logout")
-				.invalidateHttpSession(true)
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
+			.and()
 
-				.deleteCookies("JSESSIONID")
-				.clearAuthentication(true)
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login?logout")
-				.permitAll();
+			//로그인
+			.formLogin()
+			.loginPage("/login")
+			.loginProcessingUrl("/sign-in")
+			.defaultSuccessUrl("/home")
+			.failureUrl("/login?error")
+			.usernameParameter("username")
+			.passwordParameter("passwd")
+			.permitAll()
+			.and()
 
-				http.authenticationProvider(authProvider); // 로그인시 사용자 아이디 체크하는 로직
+			//예외처리
+			.exceptionHandling().accessDeniedHandler(MemberAccessDeniedHandler())
+			.and()
+			.rememberMe()
+			.key("mykey")
+			.rememberMeParameter("remember-me")
+			.rememberMeCookieName("mycookie")
+			.tokenValiditySeconds(86400) //1day
+			.tokenRepository(rememberMeTokenService()).userDetailsService(myUserDetailsService())
+			.and()
+
+			//로그아웃
+			.logout()// .logoutUrl("/signout")   // Specifies the logout URL, default URL is '/logout'
+			.logoutUrl("/logout")
+			.invalidateHttpSession(true)
+
+			.deleteCookies("JSESSIONID")
+			.clearAuthentication(true)
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/login?logout")
+			.permitAll();
+
+			http.authenticationProvider(authProvider); // 로그인시 사용자 아이디 체크하는 로직
 	}
 
 

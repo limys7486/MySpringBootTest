@@ -142,7 +142,14 @@
 				<div class="form-group">
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-						<input type="text" name="userClass" class="form-control" id="userClass" placeholder="사용자 그룹"/>
+						<!--<input type="text" name="userClass" class="form-control" id="userClass" placeholder="사용자 그룹"/>-->
+
+						<select name="userClass" id="userClass">
+							<option th:each="userClass : ${T(info.thecodinglive.member.model.MemberClass).values()}"
+									th:value="${userClass}"
+									th:text="${userClass}">
+							</option>
+						</select>
 					</div>
 					<div class="col-lg-4">
 						<span class="label label-danger" th:if="#{#fields.hasErrors('userClass')}" th:errors="*{userClass}">

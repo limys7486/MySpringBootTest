@@ -38,10 +38,10 @@
 		console.log(isAuthenticated);
 		console.log(username);
 		
-		if (isAuthenticated === true && username !== 'anonymousUser') {
-			mainContent = '/dashboard';
-		} else {
+		if (isAuthenticated != true || username === 'anonymousUser') {
 			mainContent = '/defaultmain';
+		} else {
+            mainContent = '/dashboard';
 		}
 		
         changeContent(mainContent);

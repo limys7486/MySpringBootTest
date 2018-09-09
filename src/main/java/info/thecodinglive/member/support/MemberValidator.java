@@ -36,9 +36,9 @@ public class MemberValidator implements Validator{
 			errors.rejectValue("email", "Duplicate.userForm.email");
 		}
 
-		if (memberService.findByEmpNumber(member.getEmpNumber()) != null) {
-			errors.rejectValue("email", "Duplicate.userForm.email");
-		}
+//		if (memberService.findByEmpNumber(member.getEmpNumber()) != null) {
+//			errors.rejectValue("email", "Duplicate.userForm.empNumber");
+//		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		if (member.getPassword().length() < 7 || member.getPassword().length() > 32) {

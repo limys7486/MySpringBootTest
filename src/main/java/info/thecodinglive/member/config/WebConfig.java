@@ -48,14 +48,13 @@ public class WebConfig extends WebMvcConfigurerAdapter
     {
         //registry.addInterceptor(localeChangeInterceptor());
         registry.addInterceptor(myInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/")
-                .excludePathPatterns("/login")
-                .excludePathPatterns("/home")
-                .excludePathPatterns("/signup");
+            .addPathPatterns("/**")
+            .excludePathPatterns("/")
+            .excludePathPatterns("/login")
+            .excludePathPatterns("/home")
+            .excludePathPatterns("/signup");
 
     }
-
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer)
@@ -74,14 +73,14 @@ public class WebConfig extends WebMvcConfigurerAdapter
         Integer cachePeriod = devMode ? 0 : null;
 
         registry.addResourceHandler("/assets/**")
-                .addResourceLocations("classpath:/assets/", "/assets/")
-                .setCachePeriod(3600)  //60 * 60 * 24 * 365 1year
-                .resourceChain(true)
-                //.addResolver(new GzipResourceResolver())
-                //.addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"))
-                .addResolver(new VersionResourceResolver().addVersionStrategy(new ContentVersionStrategy(), "/**"))
-                //.addResolver(new WebJarsResourceResolver())
-                .addTransformer(new AppCacheManifestTransformer());
+            .addResourceLocations("classpath:/assets/", "/assets/")
+            .setCachePeriod(3600)  //60 * 60 * 24 * 365 1year
+            .resourceChain(true)
+            //.addResolver(new GzipResourceResolver())
+            //.addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"))
+            .addResolver(new VersionResourceResolver().addVersionStrategy(new ContentVersionStrategy(), "/**"))
+            //.addResolver(new WebJarsResourceResolver())
+            .addTransformer(new AppCacheManifestTransformer());
     }
 
     @Override
