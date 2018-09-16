@@ -103,6 +103,18 @@ dependencies {
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testCompile 'junit:junit:4.12'
 
+	// https://mvnrepository.com/artifact/org.assertj/assertj-core
+	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+
+	// https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit
+	compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.33'
+
+
+//hateoas
+	// https://mvnrepository.com/artifact/org.springframework.hateoas/spring-hateoas
+	compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '0.25.0.RELEASE'
+
+
 //web static
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
 
