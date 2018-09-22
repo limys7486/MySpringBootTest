@@ -1,4 +1,4 @@
-import info.thecodinglive.member.support.PasswordEncoderUtil;
+import my.base.spring.support.PasswordEncoderUtil;
 import org.junit.Test;
 
 /**

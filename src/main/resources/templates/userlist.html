@@ -29,12 +29,16 @@ border: 0;
   <div id="divMain">
     <div class="content-wrapper">
 
+
+
       <section class="content-header">
         <h1>사용자 관리</h1>
         
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li><li class="active">사용자 관리</li>
         </ol>
+
+        <input type="button" id="button" value="Click me">
       </section>
       
       <!--<hr class="style4" />-->
@@ -85,25 +89,56 @@ border: 0;
         </div>
       </section>
 
+      <!--var myTable = $('#myTable').DataTable();-->
+      <!---->
+      <!--$('#myTable').on('click', 'tbody tr', function () {-->
+      <!--myTable.row( this ).delete();-->
+      <!--});-->
+      <!---->
+      <!--$('#myTable').on('click', 'tbody tr', function () {-->
+      <!--myTable.row( this ).delete( {-->
+      <!--buttons: [-->
+      <!--{label: 'Cancel', fn: function () { this.close(); }},-->
+      <!--'Delete'-->
+      <!--]-->
+      <!--});-->
+      <!--});-->
+
     </div>
 
-  
-  
   <!--<th:block layout:fragment="script">-->
-    <script th:inline="javascript" th:src="@{/js/myModule/memberModule.js}"></script>
-    <script th:inline="javascript" th:src="@{/js/myModule/userListTableModule.js}"></script>
-    
-    <script th:inline="javascript">
-      $(document).ready(function(e) {
-      
+  <script th:inline="javascript" th:src="@{/js/myModule/memberModule.js}"></script>
+  <script th:inline="javascript" th:src="@{/js/myModule/userListTableModule.js}"></script>
+
+  <script th:inline="javascript">
+    $(document).ready(function(e) {
+
+
+        $('#button').click(function(e) {
+          var data = userListTableModule.getSelectedRowData();
+
+          alert(JSON.stringify(data));
+        });
+
+
+
         userListTableModule.initTable($("#myTable"));
         memberModule.findAll('all', addUserList);
-        
+
+        var userTable = $("#myTable").DataTable();
+
+        $('#myTable tbody').on('click', '.btn.btn-warning.modbtn', function() {
+          var raw_data = userTable.row('.selected').username();
+          //var raw_data = userTable.row($(this).parents('tr')).data();
+          alert(raw_data);
+        });
+
+
         function addUserList(pList) {
           console.log(JSON.stringify(pList));
-          
-          userListTableModule.addUserList($("#myTable"), pList);
-          
+
+          userListTableModule.addUserList(pList);
+
           /*
           var memberObj;
           for (var i=0; i < list.length; i++) {
@@ -111,8 +146,9 @@ border: 0;
           }
           */
         }
-        
+
     });
+
 
   </script>
   

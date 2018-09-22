@@ -30,8 +30,8 @@ var memberModule = (function() {
 	}
 
     return {
-            findAll : findAll,
-            findPostAll : findPostAll
+        findAll : findAll,
+        findPostAll : findPostAll
 	}
 //    var findOne = function (obj, callback) {
 //	    console.log("findOne .........");

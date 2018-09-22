@@ -1,8 +1,11 @@
 var userListTableModule = (function () {
 
-	var initTable = function(obj) {
+    var dataTable = null;
 
-		var table = obj.DataTable({
+	var initTable = function(obj) {
+        dataTable = obj;
+
+		var table = dataTable.DataTable({
 			"bFilter" : true,
 			"pageLength": 10,
 			"paging": true,
@@ -143,8 +146,8 @@ var userListTableModule = (function () {
 				{
 					"targets": [8],
                     "render": function (data, type, row) {
-                        var ret =  "<center><a href='#'><span class='badge badge-info'>edit</span></a>";
-                                                ret += "&nbsp;<span class='badge badge-warning'>delete</span></center>";
+                        var ret =  "<center><a href='#'><span class='btn btn-warning modbtn' name='modbtn'>edit</span></a>";
+                        ret += "&nbsp;<span class='btn btn-danger delbtn' name='delbtn'>delete</span></center>";
                         return ret;
                     },
 					"data": null,
@@ -167,8 +170,15 @@ var userListTableModule = (function () {
 		});
 	}
 
-	var addUserList = function(obj, list) {
-		var table = obj.DataTable();
+	var getSelectedRowData = function() {
+	    table = dataTable.DataTable();
+
+	    var data = table.rows(['.selected']).data().toArray();
+	    return data;
+	}
+
+	var addUserList = function(list) {
+		var table = dataTable.DataTable();
 
 		table.clear();
 		table.rows.add(list).draw();  // List 로 데이터를 받음 (content-type:application/json)
@@ -181,8 +191,8 @@ var userListTableModule = (function () {
 
 	return {
 		initTable : initTable,
-		addUserList : addUserList
+		addUserList : addUserList,
+		getSelectedRowData : getSelectedRowData
 	}
 
 }) ();
-

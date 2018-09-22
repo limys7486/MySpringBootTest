@@ -5,7 +5,7 @@
 
 <mapper namespace="sample.mapper.freeBoard">
 
-<insert id="insertBoard" parameterType="info.thecodinglive.member.model.FreeBoardVO">
+<insert id="insertBoard" parameterType="my.base.spring.model.FreeBoardVO">
     <selectKey resultType="String" order="BEFORE" keyProperty="boardId">
         SELECT
         CONCAT('FB', DATE_FORMAT(NOW(), '%y%m%d%h%i%s')) AS FBSEQ
