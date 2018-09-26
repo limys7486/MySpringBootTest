@@ -124,7 +124,8 @@
 
                   <ul class="dropdown-menu">
                     <li class="header">권한</li>
-                    <li><span sec:authentication="principal.authorities"></span></li>
+                    <li><span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span></li>
+                    <li>[[${#authentication.name}]]</li>  <!--@@@@@ 인라인이 안 되네...-->
                   </ul>
                 </li>
 

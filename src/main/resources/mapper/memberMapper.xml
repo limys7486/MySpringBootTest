@@ -7,7 +7,7 @@
 
     <select id="selectMemberBoard" resultType="hashmap">
         <![CDATA[
-            select username, real_name as realName, email, address, mobile, role_name as roleName, update_date as updateDate,  enabled
+            select username, real_name as realName, email, address, mobile, role_name as roleName, update_date as updateDate, enabled
             from tbl_member
         ]]>
     </select>

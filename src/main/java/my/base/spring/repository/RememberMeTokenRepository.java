@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RememberMeTokenRepository extends JpaRepository<RememberMeToken, String>{
+public interface RememberMeTokenRepository extends JpaRepository<RememberMeToken, String>
+{
     RememberMeToken findBySeries(String series);
-
-    RememberMeToken findByUserid(String userid);
 
     List<RememberMeToken> findByUsername(String username);
 }

@@ -8,16 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/")
 public class MemberREST
 {
 	@Autowired
@@ -30,19 +27,54 @@ public class MemberREST
 	private MemberRepository2 memberRepo2;
 	
 	
-	@GetMapping("/")
-	public ResponseEntity<List<Member>> findAll() {
-		log.info("findAll .......................................................");
+	@GetMapping("/members")
+	public ResponseEntity<List<Member>> getAllMember() {
+		log.info("getAllMember .......................................................");
 
-		List<Member> memberList = memberRepo2.getMemberBoard();
+		final List<Member> memberList = memberRepo2.getMemberBoard();
+
+		if (memberList.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 
 		log.info(memberList.toString());
 
 		return new ResponseEntity<>(memberList, HttpStatus.OK);
-
 	}
+
+	@GetMapping("/members/{username}")
+	public ResponseEntity<Member> getOneMember(@PathVariable String username) {
+		log.info("getOneMember .......................................................");
+
+		//final Member member = memberRepo.findByUsername(username);
+		final Member member = memberRepo.findByUsername2(username); // @@@ 오류 나네 : 일부 필드만 가져와서 바로 Member로 변환은 안 되네...
+
+
+		if (member == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		log.info(member.toString());
+
+		return new ResponseEntity<>(member, HttpStatus.OK);
+	}
+
+//	@GetMapping("/members/{username}")
+//	public ResponseEntity<Member> getOneMember(@PathVariable String username) {
+//		log.info("getOneMember .......................................................");
+//
+//		final List<Object[]> list = memberRepo.findByUsername2(username);
+//
+//		if (member == null) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//
+//		log.info(member.toString());
+//
+//		return new ResponseEntity<>(member, HttpStatus.OK);
+//	}
 	
-//	@GetMapping("/")
+//	@GetMapping("/members")
 //	public ResponseEntity<List<Object[]>> findBoardAll() {
 //		log.info("findBoardAll .......................................................");
 //
@@ -53,7 +85,7 @@ public class MemberREST
 //		return new ResponseEntity<>(list, HttpStatus.OK);
 //	}
 	
-	@PostMapping("/")
+	@PostMapping("/members")
 	public ResponseEntity<List<Member>> findAllPost() {
 		log.info("findAllPost .......................................................");
 		

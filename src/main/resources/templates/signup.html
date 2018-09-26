@@ -18,7 +18,7 @@
 <body>
 <div class="container">
 
-	<form class="form-horizontal" role="form" method="POST" action="/signup" th:object="${userForm}">
+	<form class="form-horizontal" role="form" method="POST" th:action="@{/signup}" th:object="${userForm}">
 		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-6"> <h2>사용자 등록</h2> <hr/></div>
@@ -31,7 +31,7 @@
 				<div class="form-group">
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-						<input type="text" name="username" class="form-control" id="username" placeholder="아이디"/>
+						<input type="text" id="username" name="username" class="form-control" placeholder="아이디"/>
 					</div>
 					<div class="col-lg-4">
 						<span class="label label-danger" th:if="#{#fields.hasErrors('username')}" th:errors="*{username}">
@@ -50,7 +50,7 @@
 				<div class="form-group">
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-						<input type="text" name="email" class="form-control" id="email" placeholder="my@info.com"/>
+						<input type="text" id="email" name="email" class="form-control" placeholder="my@info.com"/>
 					</div>
 					<div class="col-lg-4">
 						<span class="label label-danger" th:if="#{#fields.hasErrors('email')}" th:errors="*{email}">
@@ -68,7 +68,7 @@
 				<div class="form-group">
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-						<input type="password" name="password" class="form-control" id="password"/>
+						<input type="password" id="password" name="password" class="form-control" />
 					</div>
 					<div class="col-lg-4">
 						<span class="label label-danger" th:if="#{#fields.hasErrors('password')}" th:errors="*{password}">
@@ -87,7 +87,8 @@
 				<div class="form-group">
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-						<input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm"/>
+						<input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" />
+
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 					</div>
 					<div class="col-lg-4">
@@ -136,23 +137,24 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-3 field-label-responsive"><label for="userClass">사용자 그룹</label>	</div>
+			<div class="col-md-3 field-label-responsive"><label for="userGroup">사용자 그룹</label>	</div>
 
 			<div class="col-md-6">
 				<div class="form-group">
 					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 						<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-						<!--<input type="text" name="userClass" class="form-control" id="userClass" placeholder="사용자 그룹"/>-->
+						<!--<input type="text" name="userGroup" class="form-control" id="userGroup" placeholder="사용자 그룹"/>-->
 
-						<select name="userClass" id="userClass">
-							<option th:each="userClass : ${T(info.thecodinglive.member.model.MemberClass).values()}"
-									th:value="${userClass}"
-									th:text="${userClass}">
+						<select name="userGroup" id="userGroup">
+							<option th:each="list : ${T(my.base.spring.model.UserGroup).values()}"
+									th:value="${list}"
+									th:text="${list}">
 							</option>
 						</select>
+
 					</div>
 					<div class="col-lg-4">
-						<span class="label label-danger" th:if="#{#fields.hasErrors('userClass')}" th:errors="*{userClass}">
+						<span class="label label-danger" th:if="#{#fields.hasErrors('userGroup')}" th:errors="*{userGroup}">
 							User Group Error
 						</span>
 					</div>

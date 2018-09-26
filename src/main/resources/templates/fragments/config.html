@@ -5,6 +5,10 @@
 
 <head th:fragment="configFragment">
 
+    <!-- default header name is X-CSRF-TOKEN -->
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
@@ -33,7 +37,7 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap3-wysihtml5.min.css}" />
 
     <!-- Google Font -->
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic}" />
+    <!--<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic}" />-->
 
     <link type="text/css" rel="stylesheet" th:href="@{/dataTables/datatables.css}" />
 
@@ -87,6 +91,8 @@
 
 
     <script type="text/javascript" th:src="@{/adminLTE/adminlte.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/vue.min.js}"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

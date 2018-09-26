@@ -24,12 +24,14 @@ public class RememberMeTokenService implements PersistentTokenRepository {
     @Override
     public void createNewToken(PersistentRememberMeToken token) {
         RememberMeToken newToken = new RememberMeToken(token);
+
         this.rememberMeTokenRepository.save(newToken);
     }
 
     @Override
     public void updateToken(String series, String tokenValue, Date lastUsed) {
         RememberMeToken token = this.rememberMeTokenRepository.findBySeries(series);
+
         if (token != null){
             token.setToken(tokenValue);
             token.setLastUsed(lastUsed);

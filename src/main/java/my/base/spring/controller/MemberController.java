@@ -32,6 +32,12 @@ public class MemberController
 	@Autowired
 	private MemberValidator memberValidator;
 
+	@GetMapping("/index")
+	public String index() {
+		return "/index";
+
+	}
+
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpSession session, String error, String logout, Model model, Principal principal) {
@@ -42,12 +48,13 @@ public class MemberController
 		if (logout != null) {
 			model.addAttribute("message", "로그아웃 되었습니다.");
 		}
-		
+
 		// @@@@@@@ TEST ----------------------------------
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String loggedUsername = auth.getName();
 		model.addAttribute("auth", auth);
 		model.addAttribute("loggedUsername", loggedUsername);
+
 		
 //		ModelAndView mv = new ModelAndView();
 //		mv.addObject("auth", auth);
@@ -92,10 +99,8 @@ public class MemberController
 	public String registration(Model model) {
 		model.addAttribute("userForm", new Member());
 
-		return "signup";
+		return "/signup";
 	}
-
-
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String registration(@ModelAttribute("userForm") @Valid Member userForm, BindingResult bindingResult) {
@@ -104,7 +109,7 @@ public class MemberController
 
 		if (bindingResult.hasErrors()) {
 			log.debug("valid error");
-			return "signup";
+			return "/signup";
 		}
 
 
@@ -128,24 +133,28 @@ public class MemberController
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("auth", auth);
 		
-		return "home";
+		return "/home";
 	}
 
 	@GetMapping("/logout")
-	public void logout() {
+	public String logout() {
+		return "/logout";
+//		return "redirect:/login?logout";
+	}
 
+	@GetMapping("/accessDenied")
+	public String accessDenied() {
+		return "/accessDenied";
 	}
 
 	@GetMapping("/403")
 	public String error403() {
-
 		return "/error/403";
 	}
 
 	@GetMapping("/welcome")
 	public String welcome(){
-
-		return "welcome";
+		return "/welcome";
 	}
 
 }

@@ -1,5 +1,6 @@
 package my.base.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,9 +33,9 @@ public class Member extends AbstractEntityModel
     @Column(name = "user_alias")
     private String userAlias ;
 
-    @Column(name = "user_class")
+    @Column(name = "user_group")
     @Enumerated(EnumType.STRING)
-    private UserClass userClass = UserClass.USER_GROUP_0 ;
+    private UserGroup userGroup = UserGroup.USER_GROUP_0 ;
 
     @Column(name = "user_mileage")
     private int userMileage = 0 ;
@@ -70,9 +71,11 @@ public class Member extends AbstractEntityModel
     private boolean enabled = true;
 
     @Column(name = "password")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // @JsonIgnore instead of
     private String password;
 
     @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // @JsonIgnore instead of
     private String passwordConfirm;
 
     @Unique

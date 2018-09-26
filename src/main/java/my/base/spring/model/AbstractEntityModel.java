@@ -14,10 +14,13 @@ import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public abstract class AbstractEntityModel implements Serializable {
+public abstract class AbstractEntityModel implements Serializable
+{
 	@CreatedDate
 	@Column(name = "reg_date", updatable = false)
 	private LocalDateTime createdDateTime;
+
+	//private LocalDateTime createdDateTime = LocalDateTime.now();
 
 	@LastModifiedDate
 	@Column(name = "update_date", updatable = true)

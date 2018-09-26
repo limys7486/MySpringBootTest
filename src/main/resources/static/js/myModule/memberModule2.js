@@ -1,19 +1,17 @@
-//import { getAjaxJsonData } from "./myAjaxModule.js"
-
-//var myAjaxModule = require('./myAjaxModule');
 
 var memberModule = (function() {
+	var ajax ;
 
-    var findAll = function (obj, callback) {
+	$.getScript("/js/myModule/myAjaxModule.js", function() {
+		ajax = myAjax;
+	});
+
+    var getMember = function (_username, _callback) {
         console.log("findAll .........");
 
+        ajax.getData("get", "json", "/members/"+_username, '', false, _callback);
 
-
-        $.getJSON('/members/', callback);
-
-		// getAjaxJsonData(pMethodType, pDataType, pUrl, pParam, debug, callback)
-        //myAjaxModule.getAjaxJsonData('get', 'json', '/members/', obj, false, callback);
-
+        //$.getJSON('/members/', callback);
     };
 
 	var findPostAll = function (obj, callback) {
@@ -30,14 +28,14 @@ var memberModule = (function() {
 	};
 
     return {
-        findAll : findAll,
+	    getMember : getMember,
         findPostAll : findPostAll
 	}
 //    var findOne = function (obj, callback) {
 //	    console.log("findOne .........");
 //
 //	    $.getJSON('/members/' + obj.bno, callback);
-//    };
+//    }
 //
 //    var insert = function(obj, callback) {
 //        console.log("insert .........");
@@ -50,7 +48,7 @@ var memberModule = (function() {
 //            contentType: 'json',
 //            success: callback
 //        })
-//    };
+//    }
 //
 //    var update = function(obj, callback) {
 //
@@ -62,7 +60,7 @@ var memberModule = (function() {
 //            contentType: 'json',
 //            success: callback
 //        })
-//    };
+//    }
 //
 //    var remove = function(obj, callback) {
 //        console.log("delete ............");
@@ -74,7 +72,7 @@ var memberModule = (function() {
 //            contentType: 'json',
 //            success: callback
 //        })
-//    };
+//    }
 //
 //    return {
 //        findAll : findAll,
